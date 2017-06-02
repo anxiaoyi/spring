@@ -77,6 +77,7 @@
     <!-- 注解 Setter 方法 -->
     <bean id="cdPlayerWithSetterMethod"
           class="soundsystem.CDPlayer">
+        <!-- name 指的就是这个类中的属性/字段的名字 -->
         <property name="compactDisc" ref="compactDisc" />
         <property name="artist" value="The Beatles" />
     </bean>
