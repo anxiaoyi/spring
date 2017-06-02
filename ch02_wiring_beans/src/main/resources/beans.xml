@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context">
+
+    <!-- Bean 的 ID: soundsystem.SgtPeppers#0 -->
+    <bean class="soundsytem.SgtPeppers" />
+
+    <!-- Bean 的 ID: compactDisc -->
+    <bean id="compactDisc" class="soundsystem.SgtPeppers" />
+
+    <!-- 使用构造器来初始化 -->
+    <bean id="cdPlayer" class="soundsystem.CDPlayer">
+        <constructor-arg ref="compactDisc" />
+    </bean>
+
+    <!-- 使用构造器传递多个参数 -->
+    <bean id="blankCompactDisc"
+          class="soundsystem.BlankDisc">
+        <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+        <constructor-arg value="The Beatles" />
+    </bean>
+
+    <!-- 传递 null 参数 -->
+    <bean id="compactDiscWithNullArg" class="soundsystem.BlankDisc">
+        <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+        <constructor-arg value="The Beatles" />
+        <constructor-arg><null/></constructor-arg>
+    </bean>
+
+    <!-- 传递 List<String> 参数 -->
+    <bean id="blankCompactDiscWithListArg" class="soundsystem.BlankDisc">
+        <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+        <constructor-arg value="The Beatles" />
+        <constructor-arg>
+            <list>
+                <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+                <value>With a Little Help from My Friends</value>
+                <value>Lucy in the Sky with Diamonds</value>
+                <value>Getting Better</value>
+                <value>Fixing a Hole</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!-- 传递 List<CompactDisc> 参数 -->
+    <bean id="beatlesDiscography"
+          class="soundsystem.Discography">
+        <constructor-arg value="The Beatles" />
+        <constructor-arg>
+            <list>
+                <ref bean="sgtPeppers" />
+                <ref bean="whiteAlbum" />
+                <ref bean="hardDaysNight" />
+                <ref bean="revolver" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!-- 传递 Set<String> 参数 -->
+    <bean id="blankCompactDiscWithSetArg" class="soundsystem.BlankDisc">
+        <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+        <constructor-arg value="The Beatles" />
+        <constructor-arg>
+            <set>
+                <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+                <value>With a Little Help from My Friends</value>
+                <value>Lucy in the Sky with Diamonds</value>
+                <value>Getting Better</value>
+                <value>Fixing a Hole</value>
+            </set>
+        </constructor-arg>
+    </bean>
+
+    <!-- 注解 Setter 方法 -->
+    <bean id="cdPlayerWithSetterMethod"
+          class="soundsystem.CDPlayer">
+        <property name="compactDisc" ref="compactDisc" />
+        <property name="artist" value="The Beatles" />
+    </bean>
+
+</beans>
