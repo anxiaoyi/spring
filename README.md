@@ -88,3 +88,55 @@ public class CDPlayer implements MediaPlayer {
 #### 3.5 运行时注入
 
 - **值从外部获得**: `@PropertySource("classpath:/com/zk/app.properties")` + 从 `Environment.getProperty` 来获取字段对应的值
+
+**Spring 3** 引入了 **Spring Expression Language**:
+
+- 常量表达式:
+
+```
+#{3.14159}
+#{'Hello'}
+#{false}
+```
+
+- 应用其他 `Bean`:
+
+```
+#{otherBeanId}
+#{otherBeanId.property}
+#{otherBeanId.method()}
+#{otherBeanId.method()?.toUpperCase()}
+```
+
+其中 `?.` 表示如果不为 `null`，那么就转为大写，否则就直接返回 `method()` 的值
+
+- 类型:
+
+```
+T(java.lang.Math)
+T(java.lang.Math).PI
+T(java.lang.Math).random()
+#{disc.title ?: 'Rattle and Hum'}
+```
+
+`?:` 是用来检查是否为 `null` 的，如果不为 `null` 返回 `disc.title`，如果为 `null`，直接返回 `'Rattle and Hum`。 另外也支持很丰富的逻辑表达式之类的东西
+
+- 正则:
+
+```
+#{admin.email matches '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.com'}
+```
+
+- 集合:
+
+```
+#{jukebox.songs[4].title}
+#{'This is a test'[3]}
+#{jukebox.songs.?[artist eq 'Aerosmith']}
+#{jukebox.songs.^[artist eq 'Aerosmith']}
+#{jukebox.songs.![title]}
+```
+
+`.?[artist eq 'Aerosmith']` 是用来过滤这个集合的，将满足条件的元素过滤出来
+`.^[artist eq 'Aerosmith']` 是用来筛选出第一个匹配的元素
+`.![title]` 把这个集合的所有 `title` 属性值取出来，然后重新组合成一个新的集合
