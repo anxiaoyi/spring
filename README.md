@@ -138,5 +138,7 @@ T(java.lang.Math).random()
 ```
 
 `.?[artist eq 'Aerosmith']` 是用来过滤这个集合的，将满足条件的元素过滤出来
+
 `.^[artist eq 'Aerosmith']` 是用来筛选出第一个匹配的元素
+
 `.![title]` 把这个集合的所有 `title` 属性值取出来，然后重新组合成一个新的集合
